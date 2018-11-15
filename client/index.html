@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="assets/bootstrap.css">
+  <title>Aplikasi</title>
+</head>
+<body>
+
+  <div id="user"></div>
+
+  <input type="text" id="name" placeholder="name">
+  <input type="text" id="email" placeholder="email">
+  <input type="password" id="password" placeholder="??????">
+  <button type="submit" onclick="addUser()">Add User</button>
+   
+  <script src="assets/331.js"></script>
+  <script src="assets/popper.js"></script>
+  <script src="assets/bootstrap.js"></script>
+
+  <script>
+      function addUser() {
+        $.ajax({
+          url: 'http://localhost:3000/user',
+          method: 'post',
+          data: {
+            name: $("#name").val(),
+            email: $("#email").val(),
+            password: $("#password").val() 
+          }
+        })
+        .done(function(result) {
+          window.location = '/'
+        })
+        .fail(function(error) {
+    
+        })
+      }
+
+      $.ajax({
+        url: 'http://localhost:3000/user',
+        method: 'get'
+      })
+      .done(function(result) {
+        for(var i = 0; i < result.length; i++) {
+          $("#user").append(result[i].name)
+        }
+      })
+      .fail(function(error) {
+  
+      })
+    </script>
+</body>
+</html>
